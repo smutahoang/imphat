@@ -14,15 +14,15 @@ public class Runner {
 		synthetic.genData(nUsers, nPlatform, nTopics, nWords, outputPath);
 	}
 
-	static void runMPHAT(String datasetPath, int nTopics, int batch) {
-		larc.imphat.model.MultiThreadMPHAT model = new MultiThreadMPHAT(datasetPath, nTopics, batch);
+	static void runMPHAT(String datasetPath, int nTopics, int batch, String outputPath) {
+		larc.imphat.model.MultiThreadMPHAT model = new MultiThreadMPHAT(datasetPath, nTopics, batch, outputPath);
 		model.train();
 	}
 
 	static void predict(String datasetPath, String resultPath, String mode, String setting, int nTopics, int nPlatforms,
 			int testBatch, PredictionMode predMode, String outputPath) {
-		larc.imphat.evaluation.Prediction prediction = new Prediction(datasetPath, resultPath, mode, setting, nTopics, nPlatforms,
-				testBatch, predMode, outputPath);
+		larc.imphat.evaluation.Prediction prediction = new Prediction(datasetPath, resultPath, mode, setting, nTopics,
+				nPlatforms, testBatch, predMode, outputPath);
 		prediction.evaluate();
 	}
 
@@ -55,7 +55,8 @@ public class Runner {
 				String datasetPath = args[1];
 				int nTopics = Integer.parseInt(args[2]);
 				int batch = Integer.parseInt(args[3]);
-				runMPHAT(datasetPath, nTopics, batch);
+				String outputPath = args[4];
+				runMPHAT(datasetPath, nTopics, batch, outputPath);
 			} else if (args[0].equals("predict")) {
 				String datasetPath = args[1];
 				String resultPath = args[2];
